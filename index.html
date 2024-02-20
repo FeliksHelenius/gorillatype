@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="style.css">
+		<title>GorillaType</title>
+	</head>
+	<body>
+		<h1>GorillaType</h1>
+		<div class="wpm-container"><span>WPM: </span> <span id="wpm">0</span></div>
+		<main>
+			<div id="settings-container">
+				<div id="amount-of-words-container">
+				<div class="word-settings word-settings-selected" data-words="10" >
+					10
+				</div>
+				<div class="word-settings" data-words="25" >25</div>
+				<div class="word-settings" data-words="50" >50</div>
+			</div>
+			<div id="game-container-outer-wrapper">
+				
+				<div id="game-container" tabindex="0"><div id="caret"></div></div>
+				<span id="blur-banner">Please start typing or press here to focus</span>
+			</div>
+			<div class="bottom-wrapper">
+
+				<span class="material-symbols-outlined" id="restart-button" tabindex="0">
+					restart_alt
+					</span>
+			</div>
+		</main>
+		<script type="module" src="./src/main.js"></script>
+	</body>
+</html>
