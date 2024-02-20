@@ -16,6 +16,11 @@ class _MainHook {
 	wordHtmlElements = []; // parents of the letters.
 	doneTyping = false;
 	letterHtmlElements = [];
+	//timer thingies wpm n shi
+	timer = false;
+	secondsCounter = 0;
+	minutesCounter = 0;
+	wpm = 0;
 
 	constructor(wordsObject) {
 		this.wordsObject = wordsObject;
@@ -113,6 +118,11 @@ class _MainHook {
 				this.finishedGame();
 			}
 		}
+
+		//starting and stopping timer
+		if (this.activeWordIndex == 0 && this.typingIndex == 0) {
+			this.startTimer();
+		}
 	}
 	updateTypingIndex() {
 		if (this.typedLetters.length == 0) {
@@ -192,6 +202,27 @@ class _MainHook {
 		});
 		gameContainer.blur();
 		this.doneTyping = true;
+		this.stopTimer();
+	}
+
+	startTimer() {
+		if (this.timer) return;
+
+		this.timer = setInterval(() => {
+			this.secondsCounter = this.secondsCounter + 0.1;
+			this.wpm =
+				(this.typedWords.join(' ').length + this.typedLetters.length) /
+				5 /
+				(this.secondsCounter / 60);
+
+			wpmElem.textContent = Math.round(this.wpm);
+		}, 100);
+	}
+	stopTimer() {
+		clearInterval(this.timer);
+		this.timer = false;
+		this.secondsCounter = 0;
+		this.minutesCounter = 0;
 	}
 
 	//all the other funny things
@@ -199,28 +230,13 @@ class _MainHook {
 
 //variables
 let mainHook = false;
-let timer;
-let secondsCounter = 0;
-let minutesCounter = 0;
 
 function initializeMainHook(wordsObject) {
 	mainHook = new _MainHook(wordsObject);
-	let wpm = 0;
-	timer = setInterval(() => {
-		secondsCounter += 0.01;
-
-		wpm =
-			(mainHook.typedWords.join(' ').length + mainHook.typedLetters.length) /
-			5 /
-			(secondsCounter / 60);
-
-		wpmElem.textContent = wpm | 0;
-	}, 10);
 }
 
 function destroyMainHook() {
 	mainHook = false;
-	clearInterval(timer);
 }
 
 export default function MainHook(wordsObject = mainHook.wordsObject) {

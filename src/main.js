@@ -51,7 +51,7 @@ gameContainer.addEventListener('blur', () => {
 restartButton.addEventListener('click', (e) => {
 	mainHook = MainHook('reset');
 });
-restartButton.addEventListener('keypress', (e) => {
+restartButton.addEventListener('keydown', (e) => {
 	const enterKey = 13;
 	if (e.keyCode == enterKey) {
 		mainHook = MainHook('reset');
