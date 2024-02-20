@@ -1,5 +1,7 @@
 import Words from '../generateWords/generateWords.js';
 import playSound from '../typingSounds/playSound.js';
+import spawnRocket from '../spawnRocket/spawnRocket.js';
+import respawnMonster from '../monster/respawnMonster.js';
 
 const gameContainer = document.querySelector('#game-container');
 const caret = document.querySelector('#caret');
@@ -59,12 +61,15 @@ class _MainHook {
 			if (
 				this.typedLetters[this.typingIndex] == this.activeWord[this.typingIndex] // if the typed letter matches the activeWord's expected letter
 			) {
+				if (letterHtmlElement.classList.length == 1)
+					spawnRocket(letterHtmlElement);
 				letterHtmlElement.classList.length == 1 // if the classList only has 'letter' and not an 'incorrect' in it
 					? letterHtmlElement.classList.add('correct')
 					: letterHtmlElement.classList.replace('incorrect', 'correct'); //if the classList has a 'letter' and an 'incorrect' in it
 
-				if (letterHtmlElement.classList.length > 1)
+				if (letterHtmlElement.classList.length > 1) {
 					this.mistakes = this.mistakes - 1;
+				}
 			} else {
 				// if the typed letter doesn't match
 				letterHtmlElement.classList.length == 1
@@ -79,7 +84,7 @@ class _MainHook {
 		if (letter.keyCode == backspace) {
 			//playsound
 			playSound('backspace');
-			console.log('pressed backspace!');
+
 			//update typingindex
 			this.updateTypingIndex();
 
@@ -97,7 +102,6 @@ class _MainHook {
 		if (letter.keyCode == whitespace) {
 			//playsound
 			playSound('spacebar');
-			console.log('pressed spacebar!');
 
 			//user has reached the end of a word
 			if (this.typedLetters.length == this.activeWord.length) {
@@ -117,10 +121,8 @@ class _MainHook {
 
 		//1. check if the user is on the last word
 		if (this.activeWordIndex + 1 == Object.entries(this.wordsObject).length) {
-			console.log('the user is on the last word');
 			//2. check if the user has reached the last letter of the last word
 			if (this.typedLetters.length == this.activeWord.length) {
-				console.log('the user has finished writing the word');
 				this.finishedGame();
 			}
 		}
@@ -138,9 +140,6 @@ class _MainHook {
 		}
 	}
 	updateActive(activeWord, activeWordIndex) {
-		console.log(
-			`Updating current activeWord: (${this.activeWord}), to ${activeWord} and current activeWordIndex: (${this.activeWordIndex}), to ${activeWordIndex}`
-		);
 		this.typedLetters = [];
 
 		this.activeWord = activeWord;
@@ -197,7 +196,6 @@ class _MainHook {
 
 	//when the player has typed all the available words
 	finishedGame() {
-		console.log('game finished!');
 		destroyMainHook();
 		caret.style.display = 'none';
 		Array.from(this.wordHtmlElements).forEach((elem) => {
@@ -210,6 +208,7 @@ class _MainHook {
 		this.doneTyping = true;
 		this.mistakes = 0;
 		this.stopTimer();
+		respawnMonster();
 	}
 
 	startTimer() {
@@ -259,7 +258,6 @@ export default function MainHook(wordsObject = mainHook.wordsObject) {
 	}
 
 	if (wordsObject == 'reset') {
-		console.log('resetting');
 		mainHook.finishedGame();
 		let wordsObject = Words();
 		initializeMainHook(wordsObject);

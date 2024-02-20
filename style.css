@@ -5,8 +5,10 @@
 	--subdark-color: #574148;
 	--lighterdark-color: #814b5c;
 	--light-color: #ac4866;
+	--monster-color: #231f20;
 }
 body {
+	margin: 0;
 	background-image: url(./src/assets/bg.svg);
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -18,10 +20,11 @@ body {
 
 main {
 	display: flex;
+	position: relative;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 5rem;
+	gap: 0rem;
 }
 
 #game-container {
@@ -182,4 +185,62 @@ main {
 
 h1 {
 	margin-left: 2rem;
+}
+
+/* monster */
+
+.monster-container {
+	display: flex;
+	position: relative;
+	width: 50rem;
+	height: 10rem;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+#monster-hitbox {
+	position: absolute;
+	width: 1rem;
+	height: 1rem;
+	/* background-color: red; */
+	margin-bottom: 1rem;
+}
+
+#monster-health {
+	position: absolute;
+	width: 20rem;
+	height: 1rem;
+	border-radius: 1rem;
+	margin-top: -1.5rem;
+	background-color: rgb(27, 27, 27);
+	overflow: hidden;
+}
+#monster-inner-health {
+	height: 100%;
+	background-color: var(--primary-color);
+}
+
+#monster {
+	display: flex;
+	position: relative;
+	width: 10rem;
+	height: 10rem;
+	justify-content: center;
+	align-items: flex-end;
+	background-image: url(./src/assets/monster.svg);
+	background-repeat: no-repeat;
+	transition: all 0.2s;
+}
+.damaged {
+	filter: blur(2px);
+	transform: translate(0px, -20px);
+}
+
+/* rockets */
+.rocket {
+	display: inline-block;
+	position: absolute;
+	background-image: url(./src/assets/rocket.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
 }

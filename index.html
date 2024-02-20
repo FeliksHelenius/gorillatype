@@ -11,15 +11,27 @@
 	<body>
 		<h1>GorillaType</h1>
 		<main>
-			<div id="settings-container">
+		
+			<div class="monster-container">
+				<div id="monster" data-health="100">
+					<div id="monster-hitbox"></div>
+				</div>
+				<div id="monster-health">
+					<div id="monster-inner-health"></div>
+				</div>
+				
+			</div>
+
+			<div id="game-outer-wrapper">
 				<div class="wpm-container"><span>WPM: </span> <span id="wpm">0</span></div>
-				<div id="amount-of-words-container">
+			<div id="amount-of-words-container">
 				<div class="word-settings word-settings-selected" data-words="10" >
 					10
 				</div>
 				<div class="word-settings" data-words="25" >25</div>
 				<div class="word-settings" data-words="50" >50</div>
 			</div>
+			
 			<div id="game-container-outer-wrapper">
 				
 				<div id="game-container" tabindex="0"><div id="caret"></div></div>
