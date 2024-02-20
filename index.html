@@ -6,14 +6,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="style.css">
-		<title>GorillaType</title>
+		<title>TypeMonster</title>
 	</head>
 	<body>
-		<h1>GorillaType</h1>
-		<main>
+		<div class="upper-wrapper">
+			<h1>TypeMonster</h1>
+		<div class="currency-container">
+			<div class="currency-icon"></div>
+			<span id="currency" data-currency="0">0</span>
+		</div>
+		</div>
 		
+		<main>
+			<span id="tip">tip: your damage scales with your wpm(Words Per Minute)!</span>
+			
 			<div class="monster-container">
-				<div id="monster" data-health="100">
+				<div id="monster" data-health="1000" data-coins="10">
 					<div id="monster-hitbox"></div>
 				</div>
 				<div id="monster-health">

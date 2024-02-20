@@ -208,7 +208,7 @@ class _MainHook {
 		this.doneTyping = true;
 		this.mistakes = 0;
 		this.stopTimer();
-		respawnMonster();
+		respawnMonster(true);
 	}
 
 	startTimer() {
