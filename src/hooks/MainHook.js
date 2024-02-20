@@ -21,6 +21,7 @@ class _MainHook {
 	secondsCounter = 0;
 	minutesCounter = 0;
 	wpm = 0;
+	mistakes = 0;
 
 	constructor(wordsObject) {
 		this.wordsObject = wordsObject;
@@ -61,12 +62,17 @@ class _MainHook {
 				letterHtmlElement.classList.length == 1 // if the classList only has 'letter' and not an 'incorrect' in it
 					? letterHtmlElement.classList.add('correct')
 					: letterHtmlElement.classList.replace('incorrect', 'correct'); //if the classList has a 'letter' and an 'incorrect' in it
+
+				if (letterHtmlElement.classList.length > 1)
+					this.mistakes = this.mistakes - 1;
 			} else {
 				// if the typed letter doesn't match
 				letterHtmlElement.classList.length == 1
 					? letterHtmlElement.classList.add('incorrect')
 					: letterHtmlElement.classList.replace('correct', 'incorrect');
 			}
+
+			this.mistakes = this.mistakes + 1;
 		}
 
 		//handling backspaces
@@ -202,6 +208,7 @@ class _MainHook {
 		});
 		gameContainer.blur();
 		this.doneTyping = true;
+		this.mistakes = 0;
 		this.stopTimer();
 	}
 
@@ -211,7 +218,9 @@ class _MainHook {
 		this.timer = setInterval(() => {
 			this.secondsCounter = this.secondsCounter + 0.1;
 			this.wpm =
-				(this.typedWords.join(' ').length + this.typedLetters.length) /
+				(this.typedWords.join(' ').length +
+					this.typedLetters.length -
+					this.mistakes) /
 				5 /
 				(this.secondsCounter / 60);
 
