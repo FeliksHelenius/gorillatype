@@ -1,45 +1,46 @@
 import addMoney from './addMoney.js';
-
+import Monster from '../../monster/monster.js';
 const mainHtmlElement = document.querySelector('main');
-const monsterHitbox = document.querySelector('#monster-hitbox');
 const currencyHtmlElement = document.querySelector('.currency-icon');
 
-let monsterHitboxPosition = monsterHitbox.getBoundingClientRect();
-let currencyPosition = currencyHtmlElement.getBoundingClientRect();
-
-let coinFinalDestination = {
-	x: currencyPosition.left,
-	y: currencyPosition.top + currencyHtmlElement.clientHeight,
-};
-
-function randomOffset() {
-	return (Math.random() * 200) | 0;
-}
-
 export default function spawnMoney(iteration, amountOfMoney) {
-	let fromCoordinates = {
-		x: monsterHitboxPosition.x + randomOffset(),
-		y: monsterHitboxPosition.y - 80 - randomOffset(),
+	let monster = Monster('get');
+	if (!monster) return;
+
+	const monsterHitbox = document.querySelector('#monster-hitbox');
+
+	// Recalculate positions within the function
+	let monsterHitboxPosition = monsterHitbox.getBoundingClientRect();
+	let currencyPosition = currencyHtmlElement.getBoundingClientRect();
+
+	let coinFinalDestination = {
+		x: currencyPosition.left,
+		y: currencyPosition.top + currencyHtmlElement.clientHeight,
 	};
 
-	//creating coin
+	let fromCoordinates = {
+		x: monsterHitboxPosition.x,
+		y: monsterHitboxPosition.y,
+	};
+
+	// creating coin
 	let coinElement = document.createElement('div');
 	coinElement.className = 'coin';
 	mainHtmlElement.appendChild(coinElement);
 
-	//coin styles
+	// coin styles
 	coinElement.style.left = `${fromCoordinates.x}px`;
 	coinElement.style.top = `${fromCoordinates.y}px`;
 
-	//keyframes
+	// keyframes
 	const styleElement = document.createElement('style');
 	styleElement.appendChild(
 		document.createTextNode(`
-        @keyframes coin {
+        @keyframes coinAnimation {
             to {
                 transform: translate(${
 									coinFinalDestination.x - fromCoordinates.x
-								}px, ${coinFinalDestination.y - fromCoordinates.y - 110}px)
+								}px, ${coinFinalDestination.y - fromCoordinates.y - 110}px);
             }
         }
         `)
@@ -47,13 +48,14 @@ export default function spawnMoney(iteration, amountOfMoney) {
 
 	document.head.appendChild(styleElement);
 
-	coinElement.style.animation = `coin 0.8s linear forwards`;
+	// Apply the shared keyframe animation to all coins
+	coinElement.style.animation = 'coinAnimation 0.8s linear forwards';
+	coinElement.style.animationDelay = `${iteration * 50}ms`;
 
 	coinElement.addEventListener('animationend', () => {
 		coinElement.remove();
 		styleElement.remove();
-		if (iteration == 0) {
-			addMoney(amountOfMoney);
-		}
+
+		addMoney(1); // 1 coin is worth 1 gold. in the future: maybe amountOfMoney/amountOfMoney?? but this is stupid...
 	});
 }

@@ -5,7 +5,7 @@ let damageSounds = [
 
 let deathSound = new Audio('./src/monster/monsterSounds/deathSound.wav');
 let dropCoinsSound = new Audio('./src/monster/monsterSounds/dropCoins.mp3');
-deathSound.volume = 0.2;
+deathSound.volume = 0.1;
 
 export default function playSound(type) {
 	switch (type) {

@@ -34,23 +34,6 @@ export default function playSound(key) {
 
 	audioOne.play();
 	audioOne.addEventListener('ended', () => {
-		if (!randomChance) return;
-		audioTwo.play();
+		if (randomChance == true) audioTwo.play();
 	});
-
-	// switch (key) {
-	// 	case 'normal':
-	// 		let audio =
-	// 			keyboardSounds[(Math.random() * keyboardSounds.length) | 0].cloneNode();
-
-	// 		audio.play();
-
-	// 		break;
-	// 	// case 'spacebar':
-	// 	// 	click1.cloneNode().play();
-	// 	// 	break;
-	// 	// case 'backspace':
-	// 	// 	backspaceSound.cloneNode().play();
-	// 	// 	break;
-	// }
 }

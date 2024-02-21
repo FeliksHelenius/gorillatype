@@ -1,7 +1,7 @@
 import Words from '../generateWords/generateWords.js';
 import playSound from '../typingSounds/playSound.js';
 import spawnRocket from '../spawnRocket/spawnRocket.js';
-import respawnMonster from '../monster/respawnMonster.js';
+import Monster from '../monster/monster.js';
 
 const gameContainer = document.querySelector('#game-container');
 const caret = document.querySelector('#caret');
@@ -196,6 +196,7 @@ class _MainHook {
 
 	//when the player has typed all the available words
 	finishedGame() {
+		let monster = Monster('get');
 		destroyMainHook();
 		caret.style.display = 'none';
 		Array.from(this.wordHtmlElements).forEach((elem) => {
@@ -208,7 +209,8 @@ class _MainHook {
 		this.doneTyping = true;
 		this.mistakes = 0;
 		this.stopTimer();
-		respawnMonster(true);
+		if (!monster) return;
+		monster.respawnMonster(true);
 	}
 
 	startTimer() {

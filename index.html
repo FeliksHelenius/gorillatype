@@ -13,32 +13,38 @@
 			<h1>TypeMonster</h1>
 		<div class="currency-container">
 			<div class="currency-icon"></div>
-			<span id="currency" data-currency="0">0</span>
+			<span id="currency">0</span>
 		</div>
 		</div>
 		
 		<main>
 			<span id="tip">tip: your damage scales with your wpm(Words Per Minute)!</span>
-			
-			<div class="monster-container">
-				<div id="monster" data-health="1000" data-coins="10">
-					<div id="monster-hitbox"></div>
-				</div>
-				<div id="monster-health">
-					<div id="monster-inner-health"></div>
-				</div>
-				
-			</div>
 
+			<div class="monster-container"></div> 
+							
 			<div id="game-outer-wrapper">
 				<div class="wpm-container"><span>WPM: </span> <span id="wpm">0</span></div>
-			<div id="amount-of-words-container">
-				<div class="word-settings word-settings-selected" data-words="10" >
-					10
+
+			<div class="settings-container">
+				<div class="amount-of-words-container">
+					<div class="word-settings" data-words="10" >
+						10
+					</div>
+					<div class="word-settings" data-words="25" >25</div>
+					<div class="word-settings" data-words="50" >50</div>
 				</div>
-				<div class="word-settings" data-words="25" >25</div>
-				<div class="word-settings" data-words="50" >50</div>
+
+				<div class="monster-settings-container">
+					<div class="monster-enabled monster-setting">Monster: <span id="monster-enabled"></span></div>
+					<select class="monster-difficulty-selector monster-setting" name="monsters" id="monster-types">
+						<option value="easy">easy</option>
+						<option value="normal">normal</option>
+						<option value="hard">hard</option>
+					</select>
+				</div>
 			</div>
+
+			
 			
 			<div id="game-container-outer-wrapper">
 				

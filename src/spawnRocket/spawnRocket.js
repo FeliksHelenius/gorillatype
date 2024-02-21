@@ -1,27 +1,29 @@
-import damageMonster from '../monster/damageMonster.js';
+import Monster from '../monster/monster.js';
 //html elements
 const mainHtmlElement = document.querySelector('main');
-const monsterHitbox = document.querySelector('#monster-hitbox');
 const wpmElem = document.querySelector('#wpm');
 //variables
-//monster
-let monsterHitboxPosition = monsterHitbox.getBoundingClientRect();
-// rocket
-const rocketOffset = { x: 5, y: 105 };
-const rocketWidth = 16; //px
-const rocketHeight = 16; //px
-let rocketDamage;
-let initialRocketDamage = 15;
-let rocketFinalDestination = {
-	x: monsterHitboxPosition.left,
-	y: monsterHitboxPosition.top - rocketOffset.y + monsterHitbox.clientHeight,
-};
 
 export default function spawnRocket(fromHtmlElement) {
+	let monster = Monster('get');
+	//if there is no monster
+	if (monster == false) return;
+	//if there is a monster
+	let monsterHitbox = document.querySelector('#monster-hitbox');
+	let monsterHitboxPosition = monsterHitbox.getBoundingClientRect();
+	// rocket
+	const rocketOffset = { x: 5, y: 105 };
+	const rocketWidth = 16; //px
+	const rocketHeight = 16; //px
+	let rocketDamage;
+	let initialRocketDamage = 15;
+	let rocketFinalDestination = {
+		x: monsterHitboxPosition.left,
+		y: monsterHitboxPosition.top - rocketOffset.y + monsterHitbox.clientHeight,
+	};
 	//scale rocketdamage with current wpm
 	let wpm = parseInt(wpmElem.textContent);
 	rocketDamage = initialRocketDamage + 1.02 ** Math.round(wpm);
-	console.log(wpm, rocketDamage);
 
 	let fromCoordinatesBoundingClient = fromHtmlElement.getBoundingClientRect();
 	let fromCoordinates = {
@@ -76,7 +78,7 @@ export default function spawnRocket(fromHtmlElement) {
 
 	//remove rocket
 	rocketElement.addEventListener('animationend', () => {
-		damageMonster(rocketDamage);
+		monster.damageMonster(rocketDamage);
 		rocketElement.remove();
 		styleElement.remove();
 	});

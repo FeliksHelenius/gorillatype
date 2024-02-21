@@ -1,12 +1,8 @@
-const currency = document.querySelector('#currency');
+import userData from '../../userData/userData.js';
+
+let [_userData, updateUserData] = userData();
 
 export default function addMoney(amountOfMoney) {
-	const newCurrency = parseInt(currency.dataset.currency);
-	const oldCurrency = newCurrency - amountOfMoney;
-
-	for (let i = oldCurrency; i < newCurrency + 1; i++) {
-		setTimeout(() => {
-			currency.textContent = i;
-		}, 100 + i * 10);
-	}
+	currency.textContent =
+		parseInt(currency.textContent) + parseInt(amountOfMoney);
 }
