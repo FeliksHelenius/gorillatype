@@ -150,9 +150,8 @@ class _Monster {
 		monsterContainer.appendChild(this.healthBarHtmlElement);
 	}
 	removeMonsterHtmlElement() {
-		monsterContainer.childNodes.forEach((elem) => {
-			elem.remove();
-		});
+		this.monsterHtmlElement.remove();
+		this.healthBarHtmlElement.remove();
 	}
 }
 

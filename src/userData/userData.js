@@ -22,8 +22,6 @@ function updateUserData(
 	localStorage.setItem('currency', _userData.currency);
 	localStorage.setItem('currentMonster', _userData.currentMonster);
 
-	console.log('currency = ', localStorage.getItem('currency'));
-
 	if (currency != 0) return;
 	updateUserDataHtml(); // since the currency gets updated with an animation esque fashion, we have to check before updating the current monster.
 }
@@ -31,7 +29,6 @@ function updateUserData(
 function updateUserDataHtml() {
 	currencyHtmlElement.textContent = _userData.currency;
 	currentMonsterHtmlElement.value = _userData.currentMonster;
-	monsterEnabledHtmlElement.textContent = _Settings.monsterEnabled;
 }
 updateUserDataHtml();
 

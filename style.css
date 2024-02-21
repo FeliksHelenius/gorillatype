@@ -100,12 +100,10 @@ main {
 	transition: all 0.2s;
 }
 
-.monster-setting-selected {
-	filter: brightness(100%);
-	background-color: var(--primary-color);
-}
-
 .monster-enabled {
+	filter: brightness(100%);
+}
+.monster-disabled {
 	filter: brightness(60%);
 	background-color: var(--secondary-color);
 }

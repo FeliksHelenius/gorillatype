@@ -9,7 +9,7 @@ import Monster from './monster/monster.js';
 const gameContainer = document.querySelector('#game-container');
 const blurBanner = document.querySelector('#blur-banner');
 const wordSettings = document.querySelectorAll('.word-settings');
-const monsterEnabledSetting = document.querySelector('.monster-enabled');
+const monsterEnabledSetting = document.querySelector('.monster-toggle-setting');
 const monsterDifficultySettings = document.querySelector('#monster-types');
 let selectedWordSetting = wordSettings[0];
 const restartButton = document.querySelector('#restart-button');
@@ -22,7 +22,7 @@ let [_userData, updateUserData] = userData();
 
 //initializing monster
 if (_Settings.monsterEnabled) {
-	let monster = Monster('create');
+	Monster('create');
 }
 //variables
 let gameContainerFocused = false;
@@ -38,10 +38,18 @@ wordSettings.forEach((elem) => {
 		let datasetWords = elem.dataset.words;
 
 		if (e.type == 'click' || e.keyCode == enterKey) {
+			const currentSelectedWord = document.querySelector(
+				'.word-settings-selected'
+			);
+			currentSelectedWord.classList.remove('word-settings-selected');
 			selectedWordSetting.className = 'word-settings';
 			e.target.classList.add('word-settings-selected');
 			selectedWordSetting = e.target;
-			updateSettings(datasetWords);
+			updateSettings(
+				datasetWords,
+				_Settings.infiniteMode,
+				_Settings.monsterEnabled
+			);
 			mainHook = MainHook('reset');
 		}
 	}
@@ -50,6 +58,23 @@ wordSettings.forEach((elem) => {
 monsterDifficultySettings.addEventListener('change', (e) => {
 	updateUserData(_userData.currency, e.target.value);
 	location.reload();
+});
+
+monsterEnabledSetting.addEventListener('click', (e) => {
+	updateSettings(
+		_Settings.wordsToGenerate,
+		_Settings.infiniteMode,
+		!_Settings.monsterEnabled
+	);
+
+	if (_Settings.monsterEnabled) {
+		if (Monster('get')) {
+			return;
+		}
+		Monster('create');
+	} else {
+		Monster('remove');
+	}
 });
 
 gameContainer.addEventListener('focus', () => {
