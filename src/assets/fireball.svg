@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 325.44 325.44" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <filter id="c">
+   <feGaussianBlur stdDeviation="8.581428"/>
+  </filter>
+  <radialGradient id="d" cx="325.71" cy="478.08" r="440.5" gradientTransform="matrix(.36391 0 0 .34503 43.669 3.4891)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ffd53d" offset="0"/>
+   <stop stop-color="#ffd53d" stop-opacity="0" offset="1"/>
+  </radialGradient>
+ </defs>
+ <path d="m42.63 35.352c31.11 54.457 110.36 67.856 91.498-35.352 18.794 87.156 101.03 73.849 116.45 17.676-44.703 104.29 22.836 93.029 71.743 82.14-82.702 56.454-54.643 86.969 3.1192 110.21-115.21-21.418-92.601 68.898-62.385 115.41-43.481-63.65-106.04-97.496-140.37-3.1193 6.5627-81.018-44.441-104.73-109.17-42.63 46.736-79.788 73.205-111.51-13.517-136.21 71.658 2.2625 104.19-24.005 42.63-108.13z" fill="url(#d)" filter="url(#c)"/>
+</svg>

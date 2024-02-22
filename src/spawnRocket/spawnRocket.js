@@ -4,7 +4,7 @@ const mainHtmlElement = document.querySelector('main');
 const wpmElem = document.querySelector('#wpm');
 //variables
 
-export default function spawnRocket(fromHtmlElement) {
+export default function spawnRocket(fromHtmlElement, type) {
 	let monster = Monster('get');
 	//if there is no monster
 	if (monster == false) return;
@@ -15,15 +15,15 @@ export default function spawnRocket(fromHtmlElement) {
 	const rocketOffset = { x: 5, y: 105 };
 	const rocketWidth = 16; //px
 	const rocketHeight = 16; //px
-	let rocketDamage;
-	let initialRocketDamage = 15;
+	let projectileDamage;
+	let initialprojectileDamage = type.damage;
 	let rocketFinalDestination = {
 		x: monsterHitboxPosition.left,
 		y: monsterHitboxPosition.top - rocketOffset.y + monsterHitbox.clientHeight,
 	};
 	//scale rocketdamage with current wpm
 	let wpm = parseInt(wpmElem.textContent);
-	rocketDamage = initialRocketDamage + 1.02 ** Math.round(wpm);
+	projectileDamage = initialprojectileDamage + 1.02 ** Math.round(wpm);
 
 	let fromCoordinatesBoundingClient = fromHtmlElement.getBoundingClientRect();
 	let fromCoordinates = {
@@ -52,6 +52,7 @@ export default function spawnRocket(fromHtmlElement) {
 	rocketElement.style.height = `${rocketHeight}px`;
 	rocketElement.style.left = `${fromCoordinates.x}px`;
 	rocketElement.style.top = `${fromCoordinates.y}px`;
+	rocketElement.style.backgroundImage = `url(${type.svg})`;
 
 	//keyframes style
 
@@ -74,11 +75,11 @@ export default function spawnRocket(fromHtmlElement) {
 
 	document.head.appendChild(styleElement);
 
-	rocketElement.style.animation = `rocket${keyframeID} 0.8s linear forwards`;
+	rocketElement.style.animation = `rocket${keyframeID} 0.6s linear forwards`;
 
 	//remove rocket
 	rocketElement.addEventListener('animationend', () => {
-		monster.damageMonster(rocketDamage);
+		monster.damageMonster(projectileDamage);
 		rocketElement.remove();
 		styleElement.remove();
 	});

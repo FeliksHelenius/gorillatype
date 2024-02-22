@@ -2,6 +2,7 @@ import Words from '../generateWords/generateWords.js';
 import playSound from '../typingSounds/playSound.js';
 import spawnRocket from '../spawnRocket/spawnRocket.js';
 import Monster from '../monster/monster.js';
+import projectileTypes from '../spawnRocket/projectileTypes.js';
 
 const gameContainer = document.querySelector('#game-container');
 const caret = document.querySelector('#caret');
@@ -18,6 +19,8 @@ class _MainHook {
 	wordHtmlElements = []; // parents of the letters.
 	doneTyping = false;
 	letterHtmlElements = [];
+	//fireball shit
+
 	//timer thingies wpm n shi
 	timer = false;
 	secondsCounter = 0;
@@ -62,7 +65,15 @@ class _MainHook {
 				this.typedLetters[this.typingIndex] == this.activeWord[this.typingIndex] // if the typed letter matches the activeWord's expected letter
 			) {
 				if (letterHtmlElement.classList.length == 1)
-					spawnRocket(letterHtmlElement);
+					if (
+						this.wordHtmlElements[this.activeWordIndex].classList.contains(
+							'word-special'
+						)
+					) {
+						spawnRocket(letterHtmlElement, projectileTypes.fireball);
+					} else {
+						spawnRocket(letterHtmlElement, projectileTypes.rocket);
+					}
 				letterHtmlElement.classList.length == 1 // if the classList only has 'letter' and not an 'incorrect' in it
 					? letterHtmlElement.classList.add('correct')
 					: letterHtmlElement.classList.replace('incorrect', 'correct'); //if the classList has a 'letter' and an 'incorrect' in it
@@ -151,9 +162,15 @@ class _MainHook {
 		//creating the elements
 
 		Object.keys(this.wordsObject).map((v, i) => {
+			let randomChance = Math.random() < 0.1;
+
 			let word = this.wordsObject[v];
 			let wordHtmlELement = document.createElement('div');
 			wordHtmlELement.classList.add('word');
+
+			if (randomChance) {
+				wordHtmlELement.classList.add('word-special');
+			}
 
 			//creating letters
 			Array.from(word).forEach((letter) => {
