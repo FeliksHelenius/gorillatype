@@ -241,7 +241,7 @@ h1 {
 	position: absolute;
 	width: 50rem;
 	height: 10rem;
-	margin-top: -50svh;
+	margin-top: -40svh;
 	justify-content: center;
 	align-items: flex-start;
 	pointer-events: none;
